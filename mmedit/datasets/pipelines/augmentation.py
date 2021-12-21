@@ -162,14 +162,10 @@ class RandomRotation:
     def __init__(self, keys, degrees):
         if isinstance(degrees, (int, float)):
             if degrees < 0.0:
-                raise ValueError(
-                    'Degrees must be positive if it is a number.'
-                )
+                raise ValueError('Degrees must be positive if it is a number.')
             else:
                 degrees = (-degrees, degrees)
         elif not mmcv.is_tuple_of(degrees, (int, float)):
-            raise TypeError(f'Wrong type of "degrees": {type(degrees)}.')
-        else:
             raise TypeError(f'Degrees must be float | int or tuple of float | '
                             'int, but got '
                             f'{type(degrees)}.')
@@ -599,9 +595,10 @@ class RandomJitter:
 class ColorJitter:
     """An interface for torch color jitter so that it can be invoked in
     mmediting pipeline.
-    
+
     Args:
-        to_rgb (bool): Whether to convert channels from BGR to RGB. Default: False.
+        to_rgb (bool): Whether to convert channels from BGR to RGB.
+            Default: False.
     """
 
     def __init__(self, to_rgb=False, **kwargs):
@@ -609,6 +606,7 @@ class ColorJitter:
         self.transform = transforms.ColorJitter(**kwargs)
 
     def __call__(self, results):
+        img = results['gt_img']
         if self.to_rgb is True:
             img = results['gt_img'][..., ::-1]
         img = Image.fromarray(img)
