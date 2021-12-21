@@ -101,15 +101,16 @@ test_pipeline = [
         type='LoadMask',
         mask_mode='set',
         mask_config=dict(
-            mask_list_file=f'{mask_root}/val_places_mask_list.txt',
-            prefix=mask_root,
+            mask_list_file=f'/home/SENSETIME/lintsuihin/code/mmediting/mask_test.txt',
+            prefix='/home/SENSETIME/lintsuihin/code/mmediting/',
             io_backend='disk',
             flag='unchanged',
             file_client_kwargs=dict())),
     dict(
-        type='CenterCrop',
+        type='Crop',
         keys=['gt_img'],
-        crop_size=512,
+        crop_size=(512, 512),
+        random_crop=False,
     ),
     dict(
         type='Normalize',
@@ -125,7 +126,7 @@ test_pipeline = [
     dict(type='ImageToTensor', keys=['gt_img', 'masked_img', 'mask'])
 ]
 
-data_root = 'data/places365'
+data_root = '.'
 
 data = dict(
     workers_per_gpu=4,
@@ -146,7 +147,7 @@ data = dict(
         test_mode=True),
     test=dict(
         type=dataset_type,
-        ann_file=(f'{data_root}/val_places_img_list.txt'),
+        ann_file=(f'{data_root}/val_test.txt'),
         data_prefix=data_root,
         pipeline=test_pipeline,
         test_mode=True))
