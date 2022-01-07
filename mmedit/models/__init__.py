@@ -1,3 +1,4 @@
+# Copyright (c) OpenMMLab. All rights reserved.
 from .backbones import *  # noqa: F401, F403
 from .base import BaseModel
 from .builder import (build, build_backbone, build_component, build_loss,
@@ -11,6 +12,7 @@ from .mattors import DIM, GCA, BaseMattor, IndexNet
 from .registry import BACKBONES, COMPONENTS, LOSSES, MODELS
 from .restorers import ESRGAN, SRGAN, BasicRestorer
 from .synthesizers import CycleGAN, Pix2Pix
+from .transformers import SearchTransformer
 
 __all__ = [
     'BaseModel', 'BasicRestorer', 'OneStageInpaintor', 'build',
